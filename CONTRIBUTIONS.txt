@@ -7,7 +7,7 @@ Connor Sullivan
 
 Contributions:
 
-Patrick Phengdara-
+Patrick Phengdara- Created the baseline UI in main.cpp, created the contributions.txt file in team repository, added the input files into team repository.
 
 Anup Achhami- Set up the team repository, integrated the Milestone 1 modules with the menu, and tested file validation, facility ID searches, graph traversal, and department operations in WSL. Compiled the project on UNT CELL, verified that BFS from Library reached 6 of 7 buildings, and recorded the result in test_results.txt.
 
