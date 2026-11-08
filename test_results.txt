@@ -1,5 +1,5 @@
 Milestone 1 | Local Linux build, g++ -std=c++17 -Wall -Wextra -Wpedantic Main.cpp
-CELL verification is pending. The missing directory is deliberately absent.
+CELL verification: PASS on cell01-cse at commit 79c122d. Build: g++ -std=c++17 -Wall -Wextra -Wpedantic Main.cpp -o campus. Input: default data, option 5, Library. Expected and actual: 7 buildings, 6 connections, 10 facilities, 7 departments, zero rejections. BFS order and distances: Library (0), Student Union (1), Business Building (1), Science Building (2), Gym (2), Engineering Building (3). Reachable: 6 of 7. The missing directory is deliberately absent.
 Menu input uses '\n' for Enter.
 
 1. Instructor data loads and lists facilities
