@@ -1,0 +1,381 @@
+Milestone 1 | Local Linux build, g++ -std=c++17 -Wall -Wextra -Wpedantic Main.cpp
+CELL verification is pending. The missing directory is deliberately absent.
+Menu input uses '\n' for Enter.
+
+1. Instructor data loads and lists facilities
+Directory: data
+Menu input, one entry per line: '1\n10'
+Expected: 7 accepted, 0 rejected / connections.txt: 6 accepted / entries 10 / departments.txt: 7 accepted / F005 | Room 101 / F007 | Room 101 / Total facilities: 10
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+F001 | Main Reading Room | Library | Library
+F002 | Tutoring Center | Library | Tutoring Center
+F003 | Student Services Office | Student Union | Student Services Office
+F004 | Computer Lab A | Science Building | Computer Lab
+F005 | Room 101 | Engineering Building | Classroom
+F006 | Computer Lab B | Engineering Building | Computer Lab
+F007 | Room 101 | Business Building | Classroom
+F008 | Fitness Center | Gym | Recreation
+F009 | Room 205 | Science Building | Classroom
+F010 | Research Help Desk | Library | Library
+Total facilities: 10
+Exiting program...
+Result: PASS
+
+2. Hash search outcomes
+Directory: data
+Menu input, one entry per line: '2\nF004\n2\n f004 \n2\n004\n2\nf999\n10'
+Expected: F004 | Computer Lab A | Science Building | Computer Lab / Invalid ID: expected F plus exactly three digits / Facility not found: F999
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+Facility ID?
+F004 | Computer Lab A | Science Building | Computer Lab
+Facility ID?
+F004 | Computer Lab A | Science Building | Computer Lab
+Facility ID?
+Invalid ID: expected F plus exactly three digits.
+Facility ID?
+Facility not found: F999
+Exiting program...
+Result: PASS
+
+3. Graph order, isolation, counts and degrees
+Directory: data
+Menu input, one entry per line: '3\n4\n10'
+Expected: Library: Student Union, Business Building / Observatory: (no connections) / Buildings: 7
+Connections: 6 / Student Union: 3 / Observatory: 0
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+Library: Student Union, Business Building
+Student Union: Library, Science Building, Gym
+Science Building: Student Union, Engineering Building
+Engineering Building: Science Building
+Business Building: Library, Gym
+Gym: Student Union, Business Building
+Observatory: (no connections)
+Buildings: 7
+Connections: 6
+Library: 2
+Student Union: 3
+Science Building: 2
+Engineering Building: 1
+Business Building: 2
+Gym: 2
+Observatory: 0
+Exiting program...
+Result: PASS
+
+4. BFS traversal, isolated and unknown starts
+Directory: data
+Menu input, one entry per line: '5\n library \n5\nObservatory\n5\nLost\n10'
+Expected: Library (distance 0)
+Student Union (distance 1)
+Business Building (distance 1)
+Science Building (distance 2)
+Gym (distance 2)
+Engineering Building (distance 3)
+Reachable: 6 of 7 / Observatory (distance 0)
+Reachable: 1 of 7 / Unknown building: Lost
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+Starting building?
+Library (distance 0)
+Student Union (distance 1)
+Business Building (distance 1)
+Science Building (distance 2)
+Gym (distance 2)
+Engineering Building (distance 3)
+Reachable: 6 of 7
+Starting building?
+Observatory (distance 0)
+Reachable: 1 of 7
+Starting building?
+Unknown building: Lost
+Exiting program...
+Result: PASS
+
+5. CRLF, comments, whitespace, references and malformed records
+Directory: testdata/validation
+Menu input, one entry per line: '1\n10'
+Expected: buildings.txt: 4 accepted, 2 rejected / connections.txt: 2 accepted, 4 rejected / facilities.txt: 2 accepted, 6 rejected / departments.txt: 2 accepted, 4 rejected / buildings.txt line 7: duplicate building / connections.txt line 3: duplicate connection / connections.txt line 4: duplicate connection / connections.txt line 5: self-connection / connections.txt line 6: unknown building Lost / facilities.txt line 4: unknown building Missing / facilities.txt line 6: wrong field count / facilities.txt line 7: wrong field count / facilities.txt line 8: empty required field / departments.txt line 4: unknown parent Ghost / F001 | Room #5 | North Hall | Lab / F014 | Room #5 | East | Lab
+Actual (repeated menus omitted):
+buildings.txt line 7: duplicate building
+buildings.txt line 8: wrong field count
+buildings.txt: 4 accepted, 2 rejected
+connections.txt line 3: duplicate connection
+connections.txt line 4: duplicate connection
+connections.txt line 5: self-connection
+connections.txt line 6: unknown building Lost
+connections.txt: 2 accepted, 4 rejected
+facilities.txt line 3: duplicate ID F001
+facilities.txt line 4: unknown building Missing
+facilities.txt line 5: invalid ID: expected F plus exactly three digits
+facilities.txt line 6: wrong field count
+facilities.txt line 7: wrong field count
+facilities.txt line 8: empty required field
+facilities.txt: 2 accepted, 6 rejected (capacity 17, entries 2, collisions 1)
+departments.txt line 1: first department must use NONE as parent
+departments.txt line 4: unknown parent Ghost
+departments.txt line 5: duplicate department
+departments.txt line 6: unknown parent NONE
+departments.txt: 2 accepted, 4 rejected
+F001 | Room #5 | North Hall | Lab
+F014 | Room #5 | East | Lab
+Total facilities: 2
+Exiting program...
+Result: PASS
+
+6. Chaining, lowercase duplicate rejected and original preserved
+Directory: testdata/validation
+Menu input, one entry per line: '2\nF001\n2\nf014\n10'
+Expected: facilities.txt line 3: duplicate ID F001 / capacity 17, entries 2, collisions 1 / F001 | Room #5 / F014 | Room #5 / absent: Replacement
+Actual (repeated menus omitted):
+buildings.txt line 7: duplicate building
+buildings.txt line 8: wrong field count
+buildings.txt: 4 accepted, 2 rejected
+connections.txt line 3: duplicate connection
+connections.txt line 4: duplicate connection
+connections.txt line 5: self-connection
+connections.txt line 6: unknown building Lost
+connections.txt: 2 accepted, 4 rejected
+facilities.txt line 3: duplicate ID F001
+facilities.txt line 4: unknown building Missing
+facilities.txt line 5: invalid ID: expected F plus exactly three digits
+facilities.txt line 6: wrong field count
+facilities.txt line 7: wrong field count
+facilities.txt line 8: empty required field
+facilities.txt: 2 accepted, 6 rejected (capacity 17, entries 2, collisions 1)
+departments.txt line 1: first department must use NONE as parent
+departments.txt line 4: unknown parent Ghost
+departments.txt line 5: duplicate department
+departments.txt line 6: unknown parent NONE
+departments.txt: 2 accepted, 4 rejected
+Facility ID?
+F001 | Room #5 | North Hall | Lab
+Facility ID?
+F014 | Room #5 | East | Lab
+Exiting program...
+Result: PASS
+
+7. Two separate nontrivial components
+Directory: testdata/validation
+Menu input, one entry per line: '5\nNorth Hall\n5\nWest\n10'
+Expected: North Hall (distance 0)
+South Hall (distance 1)
+Reachable: 2 of 4 / West (distance 0)
+East (distance 1)
+Reachable: 2 of 4
+Actual (repeated menus omitted):
+buildings.txt line 7: duplicate building
+buildings.txt line 8: wrong field count
+buildings.txt: 4 accepted, 2 rejected
+connections.txt line 3: duplicate connection
+connections.txt line 4: duplicate connection
+connections.txt line 5: self-connection
+connections.txt line 6: unknown building Lost
+connections.txt: 2 accepted, 4 rejected
+facilities.txt line 3: duplicate ID F001
+facilities.txt line 4: unknown building Missing
+facilities.txt line 5: invalid ID: expected F plus exactly three digits
+facilities.txt line 6: wrong field count
+facilities.txt line 7: wrong field count
+facilities.txt line 8: empty required field
+facilities.txt: 2 accepted, 6 rejected (capacity 17, entries 2, collisions 1)
+departments.txt line 1: first department must use NONE as parent
+departments.txt line 4: unknown parent Ghost
+departments.txt line 5: duplicate department
+departments.txt line 6: unknown parent NONE
+departments.txt: 2 accepted, 4 rejected
+Starting building?
+North Hall (distance 0)
+South Hall (distance 1)
+Reachable: 2 of 4
+Starting building?
+West (distance 0)
+East (distance 1)
+Reachable: 2 of 4
+Exiting program...
+Result: PASS
+
+8. Missing files and empty structures
+Directory: testdata/missing
+Menu input, one entry per line: '1\n3\n4\n7\nLost\n8\n9\n10'
+Expected: Cannot open buildings.txt / Cannot open connections.txt / Cannot open facilities.txt / Cannot open departments.txt / Total facilities: 0 / Buildings: 0
+Connections: 0 / No departments.
+Actual (repeated menus omitted):
+Cannot open buildings.txt
+buildings.txt: 0 accepted, 0 rejected
+Cannot open connections.txt
+connections.txt: 0 accepted, 0 rejected
+Cannot open facilities.txt
+facilities.txt: 0 accepted, 0 rejected (capacity 17, entries 0, collisions 0)
+Cannot open departments.txt
+departments.txt: 0 accepted, 0 rejected
+No facilities.
+Total facilities: 0
+No buildings.
+Buildings: 0
+Connections: 0
+No buildings.
+Department name?
+No departments.
+No departments.
+No departments.
+Exiting program...
+Result: PASS
+
+9. Root-only tree and root creation without parent prompt
+Directory: testdata/missing
+Menu input, one entry per line: '6\nNew Campus\n7\nnew campus\n8\n9\n10'
+Expected: Department added. / Name: New Campus
+Parent: None
+Children: 0
+Depth: 0 / New Campus
+New Campus
+ / absent: Parent department?
+Actual (repeated menus omitted):
+Cannot open buildings.txt
+buildings.txt: 0 accepted, 0 rejected
+Cannot open connections.txt
+connections.txt: 0 accepted, 0 rejected
+Cannot open facilities.txt
+facilities.txt: 0 accepted, 0 rejected (capacity 17, entries 0, collisions 0)
+Cannot open departments.txt
+departments.txt: 0 accepted, 0 rejected
+New department?
+Department added.
+Department name?
+Name: New Campus
+Parent: None
+Children: 0
+Depth: 0
+New Campus
+New Campus
+Exiting program...
+Result: PASS
+
+10. Tree hierarchy, plain preorder, searches and additions
+Directory: data
+Menu input, one entry per line: '7\nUNIVERSITY\n7\nComputer Science\n7\nLost\n6\nuniversity\n6\nDesign\nLost\n6\nDesign\nUniversity\n8\n9\n10'
+Expected: Parent: None
+Children: 2
+Depth: 0 / Parent: College of Engineering
+Children: 0
+Depth: 2 / Department not found: Lost / duplicate department / unknown parent Lost / Department added. / University
+    College of Engineering
+        Computer Science
+        Electrical Engineering
+    College of Science
+        Mathematics
+        Physics
+    Design / University
+College of Engineering
+Computer Science
+Electrical Engineering
+College of Science
+Mathematics
+Physics
+Design
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+Department name?
+Name: University
+Parent: None
+Children: 2
+Depth: 0
+Department name?
+Name: Computer Science
+Parent: College of Engineering
+Children: 0
+Depth: 2
+Department name?
+Department not found: Lost
+New department?
+duplicate department
+New department?
+Parent department?
+unknown parent Lost
+New department?
+Parent department?
+Department added.
+University
+    College of Engineering
+        Computer Science
+        Electrical Engineering
+    College of Science
+        Mathematics
+        Physics
+    Design
+University
+College of Engineering
+Computer Science
+Electrical Engineering
+College of Science
+Mathematics
+Physics
+Design
+Exiting program...
+Result: PASS
+
+11. Menu recovery, blank names and exit alias
+Directory: data
+Menu input, one entry per line: '\nabc\n11\n2x\n5\n  \n6\n\n7\n\n5\n Student Union \n0'
+Expected: Invalid menu choice.
+Invalid menu choice.
+Invalid menu choice.
+Invalid menu choice.
+ / Name cannot be blank. / Student Union (distance 0) / Reachable: 6 of 7 / Exiting program...
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+Invalid menu choice.
+Invalid menu choice.
+Invalid menu choice.
+Invalid menu choice.
+Starting building?
+Name cannot be blank.
+New department?
+Name cannot be blank.
+Department name?
+Name cannot be blank.
+Starting building?
+Student Union (distance 0)
+Library (distance 1)
+Science Building (distance 1)
+Gym (distance 1)
+Business Building (distance 2)
+Engineering Building (distance 2)
+Reachable: 6 of 7
+Exiting program...
+Result: PASS
+
+12. Interactive addition does not persist
+Directory: data
+Menu input, one entry per line: '7\nDesign\n10'
+Expected: Department not found: Design
+Actual (repeated menus omitted):
+buildings.txt: 7 accepted, 0 rejected
+connections.txt: 6 accepted, 0 rejected
+facilities.txt: 10 accepted, 0 rejected (capacity 17, entries 10, collisions 0)
+departments.txt: 7 accepted, 0 rejected
+Department name?
+Department not found: Design
+Exiting program...
+Result: PASS

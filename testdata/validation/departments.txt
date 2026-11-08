@@ -1,0 +1,6 @@
+Too Soon|Ghost
+University|NONE
+Arts|University
+Bad|Ghost
+arts|University
+Second|NONE

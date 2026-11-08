@@ -1,0 +1,8 @@
+ f001 |Room #5| north hall |Lab
+F014|Room #5|East|lab
+f001|Replacement|West|Bogus
+F099|Bad|Missing|Lab
+X001|Bad|West|Lab
+F003|Short
+F003|Long|West|Lab|extra
+F003|Empty|West|

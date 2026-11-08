@@ -1,0 +1,6 @@
+  # Test buildings
+
+  Library  
+library
+Bad|Record
+Student Union

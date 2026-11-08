@@ -1,0 +1,32 @@
+Milestone 1 design
+
+HashTable begins with 17 buckets. For each ASCII byte c in a trimmed,
+uppercase ID, update h = (31 * h + c) modulo 17, starting with h = 0.
+Each bucket is a dynamically growing vector of ID and record-index pairs.
+Separate chaining keeps insertions possible when every bucket is occupied.
+Capacity is a bucket count. The chains grow subject to available memory.
+Only a successful insertion into a previously nonempty bucket counts as one
+collision. Lookup and rejected duplicates add zero. IDs F001 and F014 both
+hash to bucket 11. In testdata/validation the next f001 is rejected, so the
+final diagnostic reports two entries and one collision. With chain length k,
+lookup examines at most k entries in the selected bucket.
+
+Facilities stores accepted records in a separate vector in file order. Its
+hash index stores numeric positions that stay valid when that vector grows.
+IDs must be F and exactly three digits. Building references use the spelling
+of the accepted building. Categories keep their first accepted spelling.
+
+CampusGraph stores one adjacency list per building. This takes O(V + E)
+space and preserves both file orders without sorting. A connection appends
+one entry at each endpoint and increments the edge count once. BFS records
+distance before enqueueing each vertex and traverses its neighbors in order.
+After resolving the starting name, BFS takes O(V + E) worst-case time.
+
+DepartmentTree stores nodes by index. Each node owns its name, parent index,
+depth and insertion-ordered child indices. The first valid root has depth 0.
+An explicit stack performs preorder without relying on recursive call depth.
+Children enter that stack in reverse order so earlier siblings appear first.
+
+Input reads complete lines and rejects records before modules use their fields.
+Main.cpp loads dependencies in order and passes the same graph to facilities,
+graph displays and BFS. The menu parses a complete line for each choice.

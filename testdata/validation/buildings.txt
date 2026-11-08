@@ -1,0 +1,8 @@
+  # buildings
+
+North Hall
+South Hall
+East
+West
+north hall
+A|B
