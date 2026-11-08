@@ -1,59 +1,111 @@
+// Main.cpp
+// Purpose: Display the Milestone 1 menu and handle the user's selection.
+// Original menu: CSCE 2110 Smart Campus project team.
+
+#include "CampusGraph.h"
 #include <iostream>
-int main() {
-	int choice = 0;
-	do
-	{
-		std::cout << "1. View all facilities" << '\n';
-		std::cout << "2. Search facility by ID" << '\n';
-		std::cout << "3. View campus graph" << '\n';
-		std::cout << "4. Display graph counts and degrees" << '\n';
-		std::cout << "5. Find reachable buildings (BFS)" << '\n';
-		std::cout << "6. Add department" << '\n';
-		std::cout << "7. Search department" << '\n';
-		std::cout << "8. Display department hierarchy" << '\n';
-		std::cout << "9. Run preorder traversal" << '\n';
-		std::cout << "10. Exit" << '\n' << '\n';
-		std::cout << "Enter your choice: ";
+#include <sstream>
+#include <string>
 
-		while (!(std::cin >> choice) || choice < 1 || choice > 10) {
-			std::cout << "Invalid input. Please enter a number between 1 and 10: ";
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
-		switch (choice) {
-		case 1:
-			std::cout << "Viewing all facilities..." << '\n';
-			break;
-		case 2:
-			std::cout << "Searching facility by ID..." << '\n';
-			break;
-		case 3:
-			std::cout << "Viewing campus graph..." << '\n';
-			break;
-		case 4:
-			std::cout << "Displaying graph counts and degrees..." << '\n';
-			break;
-		case 5:
-			std::cout << "Finding reachable buildings (BFS)..." << '\n';
-			break;
-		case 6:
-			std::cout << "Adding department..." << '\n';
-			break;
-		case 7:
-			std::cout << "Searching department..." << '\n';
-			break;
-		case 8:
-			std::cout << "Displaying department hierarchy..." << '\n';
-			break;
-		case 9:
-			std::cout << "Running preorder traversal..." << '\n';
-			break;
-		case 10:
-			std::cout << "Exiting program..." << '\n';
-			break;
-		}
-	} while (choice != 10);
+// Display the available Milestone 1 operations.
+void displayMenu() {
+    std::cout << "\nSmart Campus Navigation and Facility Analytics\n"
+              << "1. View all facilities\n"
+              << "2. Search facility by ID\n"
+              << "3. View campus graph\n"
+              << "4. Display graph counts and degrees\n"
+              << "5. Find reachable buildings (BFS)\n"
+              << "6. Add department\n"
+              << "7. Search department\n"
+              << "8. Display department hierarchy\n"
+              << "9. Run preorder traversal\n"
+              << "10. Exit\n\n"
+              << "Enter your choice: ";
+}
 
-	return 0;
+// Accept one whole number with optional surrounding whitespace.
+// Section 6.9 lists 10 as Exit, and requirement UI-7 also allows 0.
+bool parseMenuChoice(const std::string& line, int& choice) {
+    std::istringstream input(line);
+    char extra;
 
+    if (!(input >> choice)) {
+        return false;
+    }
+
+    if (input >> extra) {
+        return false;
+    }
+
+    return choice >= 0 && choice <= 10;
+}
+
+// Repeat the menu until the user selects Exit or closes the input.
+int main(int argc, char* argv[]) {
+    const std::string dataDirectory = (argc > 1) ? argv[1] : "data";
+
+    CampusGraph graph;
+    graph.loadBuildings(dataDirectory);
+	graph.loadConnections(dataDirectory);
+
+    std::string line;
+
+    while (true) {
+        displayMenu();
+
+        if (!std::getline(std::cin, line)) {
+            break;
+        }
+
+        int choice;
+        if (!parseMenuChoice(line, choice)) {
+            std::cout << "Invalid choice. Enter a number from 1 to 10.\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                std::cout << "Viewing all facilities...\n";
+                break;
+
+            case 2:
+                std::cout << "Searching facility by ID...\n";
+                break;
+
+            case 3:
+                std::cout << "Viewing campus graph...\n";
+                break;
+
+            case 4:
+                std::cout << "Displaying graph counts and degrees...\n";
+                break;
+
+            case 5:
+                std::cout << "Finding reachable buildings (BFS)...\n";
+                break;
+
+            case 6:
+                std::cout << "Adding department...\n";
+                break;
+
+            case 7:
+                std::cout << "Searching department...\n";
+                break;
+
+            case 8:
+                std::cout << "Displaying department hierarchy...\n";
+                break;
+
+            case 9:
+                std::cout << "Running preorder traversal...\n";
+                break;
+
+            case 0:
+            case 10:
+                std::cout << "Exiting program...\n";
+                return 0;
+        }
+    }
+
+    return 0;
 }

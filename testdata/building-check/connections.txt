@@ -1,0 +1,6 @@
+Library|Student Union
+student union|LIBRARY
+Library|Library
+Library|Unknown Hall
+Library|
+Library|Student Union|Extra
