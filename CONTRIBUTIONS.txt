@@ -9,7 +9,7 @@ Contributions:
 
 Patrick Phengdara-
 
-Anup Achhiami- Set up the team repository, integrated the Milestone 1 modules with the menu, and tested file validation, facility ID searches, graph traversal, and department operations in WSL. Compiled the project on UNT CELL, verified that BFS from Library reached 6 of 7 buildings, and recorded the result in test_results.txt.
+Anup Achhami- Set up the team repository, integrated the Milestone 1 modules with the menu, and tested file validation, facility ID searches, graph traversal, and department operations in WSL. Compiled the project on UNT CELL, verified that BFS from Library reached 6 of 7 buildings, and recorded the result in test_results.txt.
 
 Connor Sullivan- 
 
@@ -17,6 +17,6 @@ Reflections:
 
 Patrick Phengdara-
 
-Anup Achhiami-
+Anup Achhami-
 
 Connor Sullivan- 
