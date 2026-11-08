@@ -1,111 +1,86 @@
-// Main.cpp
-// Purpose: Display the Milestone 1 menu and handle the user's selection.
-// Original menu: CSCE 2110 Smart Campus project team.
-
-#include "CampusGraph.h"
-#include <iostream>
+// Team menu adapted from the repository starter. Integration author: OpenAI Codex.
+#include "DepartmentTree.h"
+#include "Facilities.h"
 #include <sstream>
-#include <string>
 
-// Display the available Milestone 1 operations.
-void displayMenu() {
-    std::cout << "\nSmart Campus Navigation and Facility Analytics\n"
-              << "1. View all facilities\n"
-              << "2. Search facility by ID\n"
-              << "3. View campus graph\n"
-              << "4. Display graph counts and degrees\n"
-              << "5. Find reachable buildings (BFS)\n"
-              << "6. Add department\n"
-              << "7. Search department\n"
-              << "8. Display department hierarchy\n"
-              << "9. Run preorder traversal\n"
-              << "10. Exit\n\n"
-              << "Enter your choice: ";
+// Display the team's numbered Milestone 1 menu.
+void showMenu() {
+    std::cout << "1. View all facilities" << '\n';
+    std::cout << "2. Search facility by ID" << '\n';
+    std::cout << "3. View campus graph" << '\n';
+    std::cout << "4. Display graph counts and degrees" << '\n';
+    std::cout << "5. Find reachable buildings (BFS)" << '\n';
+    std::cout << "6. Add department" << '\n';
+    std::cout << "7. Search department" << '\n';
+    std::cout << "8. Display department hierarchy" << '\n';
+    std::cout << "9. Run preorder traversal" << '\n';
+    std::cout << "10. Exit" << '\n' << '\n';
+    std::cout << "Enter your choice: ";
 }
 
-// Accept one whole number with optional surrounding whitespace.
-// Section 6.9 lists 10 as Exit, and requirement UI-7 also allows 0.
-bool parseMenuChoice(const std::string& line, int& choice) {
-    std::istringstream input(line);
-    char extra;
-
-    if (!(input >> choice)) {
-        return false;
-    }
-
-    if (input >> extra) {
-        return false;
-    }
-
-    return choice >= 0 && choice <= 10;
+// Read a full name and report blanks before returning to the menu.
+bool readName(const std::string& prompt, std::string& value) {
+    std::cout << prompt << '\n';
+    if (!std::getline(std::cin, value)) return false;
+    value = trim(value);
+    if (!value.empty()) return true;
+    std::cout << "Name cannot be blank.\n";
+    return false;
 }
 
-// Repeat the menu until the user selects Exit or closes the input.
-int main(int argc, char* argv[]) {
-    const std::string dataDirectory = (argc > 1) ? argv[1] : "data";
-
+// Initialize the shared structures and dispatch menu operations.
+int main(int argc, char** argv) {
+    std::string dir = argc > 1 ? argv[1] : "data";
     CampusGraph graph;
-    graph.loadBuildings(dataDirectory);
-	graph.loadConnections(dataDirectory);
+    Facilities facilities;
+    DepartmentTree tree;
+    load(dir, "buildings.txt", 1, [&](const Fields& f) { return graph.addBuilding(f); });
+    std::cout << '\n';
+    load(dir, "connections.txt", 2, [&](const Fields& f) { return graph.connect(f); });
+    std::cout << '\n';
+    load(dir, "facilities.txt", 4, [&](const Fields& f) { return facilities.add(f, graph); });
+    facilities.diagnostic();
+    load(dir, "departments.txt", 2, [&](const Fields& f) { return tree.add(f[0], f[1]); });
+    std::cout << '\n';
 
-    std::string line;
-
-    while (true) {
-        displayMenu();
-
-        if (!std::getline(std::cin, line)) {
-            break;
-        }
-
+    std::string line, name, parent;
+    while (std::cin) {
+        showMenu();
+        if (!std::getline(std::cin, line)) break;
+        std::istringstream input(line);
         int choice;
-        if (!parseMenuChoice(line, choice)) {
-            std::cout << "Invalid choice. Enter a number from 1 to 10.\n";
+        char extra;
+        if (!(input >> choice) || (input >> extra) || choice < 0 || choice > 10) {
+            std::cout << "Invalid menu choice.\n";
             continue;
         }
-
         switch (choice) {
-            case 1:
-                std::cout << "Viewing all facilities...\n";
-                break;
-
-            case 2:
-                std::cout << "Searching facility by ID...\n";
-                break;
-
-            case 3:
-                std::cout << "Viewing campus graph...\n";
-                break;
-
-            case 4:
-                std::cout << "Displaying graph counts and degrees...\n";
-                break;
-
-            case 5:
-                std::cout << "Finding reachable buildings (BFS)...\n";
-                break;
-
-            case 6:
-                std::cout << "Adding department...\n";
-                break;
-
-            case 7:
-                std::cout << "Searching department...\n";
-                break;
-
-            case 8:
-                std::cout << "Displaying department hierarchy...\n";
-                break;
-
-            case 9:
-                std::cout << "Running preorder traversal...\n";
-                break;
-
-            case 0:
-            case 10:
-                std::cout << "Exiting program...\n";
-                return 0;
+        case 0:
+        case 10: std::cout << "Exiting program...\n"; return 0;
+        case 1: facilities.display(); break;
+        case 2:
+            std::cout << "Facility ID?\n";
+            if (std::getline(std::cin, line)) facilities.search(line);
+            break;
+        case 3: graph.display(false); break;
+        case 4: graph.display(true); break;
+        case 5:
+            if (readName("Starting building?", name)) graph.reachable(name);
+            break;
+        case 6: {
+            if (!readName("New department?", name)) break;
+            if (tree.contains(name)) { std::cout << "duplicate department\n"; break; }
+            parent = "NONE";
+            if (!tree.empty() && !readName("Parent department?", parent)) break;
+            auto reason = tree.add(name, parent);
+            std::cout << (reason.empty() ? "Department added." : reason) << '\n';
+            break;
+        }
+        case 7:
+            if (readName("Department name?", name)) tree.search(name);
+            break;
+        case 8: tree.preorder(true); break;
+        case 9: tree.preorder(false); break;
         }
     }
-
-    return 0;
 }

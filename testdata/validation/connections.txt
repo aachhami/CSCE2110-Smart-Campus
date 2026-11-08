@@ -1,0 +1,6 @@
+North Hall|South Hall
+East|West
+South Hall|North Hall
+North Hall|South Hall
+East|East
+West|Lost

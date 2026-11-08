@@ -1,0 +1,9 @@
+/campus
+*.exe
+*.o
+*.obj
+*.out
+.vscode/
+.idea/
+.vs/
+build/
