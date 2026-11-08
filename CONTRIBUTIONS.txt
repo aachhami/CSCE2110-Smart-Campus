@@ -17,6 +17,6 @@ Reflections:
 
 Patrick Phengdara-
 
-Anup Achhami-
+Anup Achhami- I connected the menu to the campus graph, facility search, and department tree. I learned why the graph stores each walkway in both directions when I tested `Library|Student Union` and saw that the program correctly rejected `Student Union|Library` as a duplicate. I also compiled the project on UNT CELL and checked the BFS output. Starting from Library reached 6 of the 7 buildings, which made sense because Observatory had no connections.
 
 Connor Sullivan- 
