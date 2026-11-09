@@ -1,4 +1,4 @@
-// Team menu adapted from the repository starter. Integration author: OpenAI Codex.
+// Team menu adapted from the repository starter. Integration author: Whole Team.
 #include "DepartmentTree.h"
 #include "Facilities.h"
 #include <sstream>
