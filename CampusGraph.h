@@ -1,4 +1,4 @@
-// Ordered undirected campus graph and BFS. Author: OpenAI Codex.
+// Ordered undirected campus graph and BFS. Author: Anup, Patrick.
 #pragma once
 #include "Input.h"
 #include <queue>
