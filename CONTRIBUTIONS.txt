@@ -11,7 +11,7 @@ Patrick Phengdara- Created the baseline UI in main.cpp, created the contribution
 
 Anup Achhami- Set up the team repository, integrated the Milestone 1 modules with the menu, and tested file validation, facility ID searches, graph traversal, and department operations in WSL. Compiled the project on UNT CELL, verified that BFS from Library reached 6 of 7 buildings, and recorded the result in test_results.txt.
 
-Connor Sullivan- 
+Connor Sullivan- Assembled tree data for the departments, and created the traversal methods to locate the requested information. 
 
 Reflections:
 
@@ -19,4 +19,4 @@ Patrick Phengdara- I created the basic layout of the UI in the main.cpp file whi
 
 Anup Achhami- I connected the menu to the campus graph, facility search, and department tree. I learned why the graph stores each walkway in both directions when I tested `Library|Student Union` and saw that the program correctly rejected `Student Union|Library` as a duplicate. I also compiled the project on UNT CELL and checked the BFS output. Starting from Library reached 6 of the 7 buildings, which made sense because Observatory had no connections.
 
-Connor Sullivan- 
+Connor Sullivan- My main task was working with department data, implementing it into a tree and using the algorithms to traverse to the needed part of the data. Other than that I played a guidance and assistive role in piecing together code for some of the other stuff. Besides my part of the assignment I tried to be as collaborative as I could. 
