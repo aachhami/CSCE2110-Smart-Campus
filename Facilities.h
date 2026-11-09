@@ -1,4 +1,4 @@
-// Facility records in file order and indexed lookup. Author: OpenAI Codex.
+// Facility records in file order and indexed lookup. Author: Anup.
 #pragma once
 #include "CampusGraph.h"
 #include "HashTable.h"
