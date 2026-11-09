@@ -7,7 +7,7 @@ Connor Sullivan
 
 Contributions:
 
-Patrick Phengdara- Created the baseline UI in main.cpp, created the contributions.txt file in team repository, added the input files into team repository.
+Patrick Phengdara- Created the baseline UI in main.cpp, created the contributions.txt file in team repository, added the input files into team repository, helped create and implement the basic graph and BFS functions.
 
 Anup Achhami- Set up the team repository, integrated the Milestone 1 modules with the menu, and tested file validation, facility ID searches, graph traversal, and department operations in WSL. Compiled the project on UNT CELL, verified that BFS from Library reached 6 of 7 buildings, and recorded the result in test_results.txt.
 
@@ -15,7 +15,7 @@ Connor Sullivan-
 
 Reflections:
 
-Patrick Phengdara-
+Patrick Phengdara- I created the basic layout of the UI in the main.cpp file which would be updated as functions were implemented/created. I contributed with some of the stuff in GitHub like adding the required input files needed for the project, creating the contributions.txt file so we can write do our contributions, and making small corrections in the code files like fixing comment lines or formatting to make it look nicer. The main thing I did was helping to create and implement the basic required graph and BFS functions like displaying the total number of buildings and connections in the graph, displaying the degrees of every building, and displaying the reachability of buildings from a chosen building. I mainly was making sure the required functions worked before accounting for special cases like duplicate lines in the file, incorrectly formatted lines in the file, etc.    
 
 Anup Achhami- I connected the menu to the campus graph, facility search, and department tree. I learned why the graph stores each walkway in both directions when I tested `Library|Student Union` and saw that the program correctly rejected `Student Union|Library` as a duplicate. I also compiled the project on UNT CELL and checked the BFS output. Starting from Library reached 6 of the 7 buildings, which made sense because Observatory had no connections.
 
