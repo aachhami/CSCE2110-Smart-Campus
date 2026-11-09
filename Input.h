@@ -1,4 +1,4 @@
-// Shared input and load diagnostics. Author: OpenAI Codex.
+// Shared input and load diagnostics. Author: Whole team.
 #pragma once
 #include <algorithm>
 #include <fstream>
