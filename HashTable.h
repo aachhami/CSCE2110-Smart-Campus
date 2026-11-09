@@ -1,4 +1,4 @@
-// Facility ID index with separate chaining. Author: OpenAI Codex.
+// Facility ID index with separate chaining. Author: Anup.
 #pragma once
 #include "Input.h"
 
