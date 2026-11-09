@@ -1,4 +1,4 @@
-// General department tree with ordered children. Author: OpenAI Codex.
+// General department tree with ordered children. Author: Anup, Connor.
 #pragma once
 #include "Input.h"
 
